@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="html-tag">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator | صانع الباركود</title>
+    <style>
+        /* تعريف الألوان  */
+        :root {
+            --bg-color: #0d0e12;
+            --container-bg: #16181f;
+            --accent-color: #d4af37;
+            --accent-hover: #f1c40f;
+            --text-main: #f8f9fa;
+            --text-muted: #8b92a5;
+            --input-bg: #07080a;
+            --border-color: #242733;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.3s ease;
+            color: var(--text-main);
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.05);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        #langBtn {
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        #langBtn:hover {
+            background: var(--accent-color);
+            color: #000;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        h2 {
+            color: var(--text-main);
+            margin-bottom: 10px;
+            font-size: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: #4a4e60;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, var(--accent-color), #b59226);
+            color: #000;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .generate-btn:hover {
+            background: linear-gradient(135deg, var(--accent-hover), var(--accent-color));
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .generate-btn:active {
+            transform: scale(0.98);
+        }
+
+        #qrResult {
+            margin-top: 30px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #qrImage {
+            border: 2px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 15px;
+            background: #ffffff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.15);
+            max-width: 100%;
+            height: auto;
+            transition: all 0.4s ease;
+        }
+
+        .hint {
+            margin-top: 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* تنسيق قسم الحقوق والروابط */
+        .copyright {
+            margin-top: 25px;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .copyright a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: var(--accent-hover);
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+
+        .separator {
+            color: var(--border-color);
+            margin: 0 8px;
+        }
+
+        .location {
+            font-size: 12px;
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header-controls">
+            <button id="langBtn" onclick="toggleLanguage()">عربي</button>
+        </div>
+
+        <h2 id="title">QR Code Generator</h2>
+        <p id="subtitle">Paste your Google Drive (or any) link below:</p>
+
+        <input type="text" id="linkInput" placeholder="Paste link here..." />
+
+        <button class="generate-btn" id="generateBtn" onclick="generateQR()">Generate QR Code</button>
+
+        <div id="qrResult">
+            <img id="qrImage" src="" alt="QR Code">
+            <p class="hint" id="hintText">Right-click (or long press on mobile) the image to save it</p>
+        </div>
+    </div>
+
+    <div class="copyright" id="copyrightText">
+    </div>
+
+    <script>
+        // إعدادات اللغات (الافتراضي هو الإنجليزي)
+        let currentLang = 'en';
+
+        // بياناتك الشخصية المدمجة
+        const myLinkedIn = "https://www.linkedin.com/in/mbnq";
+        const myEmail = "mailto:mbnq1@outlook.com";
+
+
+        const translations = {
+            ar: {
+                langBtn: "English",
+                title: "أداة صنع الباركود",
+                subtitle: "ضع أي رابط قوقل درايف (أو غيره) في المربع أدناه:",
+                placeholder: "الصق الرابط هنا...",
+                generateBtn: "اصنع الباركود الآن",
+                hintText: "اضغط بزر الماوس الأيمن على الصورة (أو مطولاً بالجوال) لحفظها",
+                alertMsg: "الرجاء لصق رابط أولاً!",
+                copyright: `جميع الحقوق محفوظة &copy; 2026<br>
+                            <a href="${myLinkedIn}" target="_blank">محمد نواف</a> 
+                            <span class="separator">|</span> 
+                            <a href="${myEmail}">الإيميل</a>
+                            <span class="separator">|</span> 
+                            <span class="location">المملكة العربية السعودية</span>`
+            },
+            en: {
+                langBtn: "عربي",
+                title: "QR Code Generator",
+                subtitle: "Paste your Google Drive (or any) link below:",
+                placeholder: "Paste link here...",
+                generateBtn: "Generate QR Code",
+                hintText: "Right-click (or long press on mobile) the image to save it",
+                alertMsg: "Please paste a link first!",
+                copyright: `All Rights Reserved &copy; 2026<br>
+                            <a href="${myLinkedIn}" target="_blank">Mohammed Nawaf</a> 
+                            <span class="separator">|</span> 
+                            <a href="${myEmail}">Email</a>
+                            <span class="separator">|</span> 
+                            <span class="location">Saudi Arabia</span>`
+            }
+        };
+
+        // تعيين النصوص عند تحميل الصفحة لأول مرة
+        document.getElementById('copyrightText').innerHTML = translations['en'].copyright;
+
+        // دالة تغيير اللغة
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            const t = translations[currentLang];
+
+            // تغيير اتجاه الصفحة
+            document.getElementById('html-tag').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('html-tag').lang = currentLang;
+
+            // تغيير النصوص
+            document.getElementById('langBtn').innerText = t.langBtn;
+            document.getElementById('title').innerText = t.title;
+            document.getElementById('subtitle').innerText = t.subtitle;
+            document.getElementById('linkInput').placeholder = t.placeholder;
+            document.getElementById('generateBtn').innerText = t.generateBtn;
+            document.getElementById('hintText').innerText = t.hintText;
+
+            // تغيير نص الحقوق
+            document.getElementById('copyrightText').innerHTML = t.copyright;
+        }
+
+        // دالة توليد الباركود
+        function generateQR() {
+            var link = document.getElementById('linkInput').value;
+            var resultDiv = document.getElementById('qrResult');
+            var imgElement = document.getElementById('qrImage');
+
+            // التأكد من وجود رابط
+            if (link.trim() === "") {
+                alert(translations[currentLang].alertMsg);
+                return;
+            }
+
+            // إخفاء الصورة مؤقتاً لحين تحميل الجديدة
+            resultDiv.style.display = "none";
+
+            // جلب الباركود وعرضه
+            var apiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(link);
+            imgElement.src = apiUrl;
+
+            // إظهار القسم بمجرد اكتمال تحميل الصورة
+            imgElement.onload = function () {
+                resultDiv.style.display = "flex";
+            };
+        }
+    </script>
+
+</body>
+
+</html>
