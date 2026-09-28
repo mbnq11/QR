@@ -4,190 +4,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code Generator | صانع الباركود</title>
+    <title>QR Studio | Apple Design</title>
+    <!-- تضمين مكتبة التوليد الاحترافية للأشكال المختلفة -->
+    <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <style>
-        /* تعريف الألوان  */
         :root {
-            --bg-color: #0d0e12;
-            --container-bg: #16181f;
-            --accent-color: #d4af37;
-            --accent-hover: #f1c40f;
-            --text-main: #f8f9fa;
-            --text-muted: #8b92a5;
-            --input-bg: #07080a;
-            --border-color: #242733;
+            --bg-body: #f5f5f7;
+            --card-bg: rgba(255, 255, 255, 0.82);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ed;
+            --input-bg: #ffffff;
+            --control-bg: #e5e5ea;
+            --shadow-subtle: 0 4px 24px -1px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+            --shadow-float: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-            transition: all 0.3s ease;
-            color: var(--text-main);
+            padding: 40px 20px;
         }
 
+        /* حاوية التصميم - أسلوب آبل الزجاجي */
         .container {
-            background-color: var(--container-bg);
-            padding: 40px 30px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.05);
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 36px 32px;
             width: 100%;
-            max-width: 450px;
-            text-align: center;
-            position: relative;
+            max-width: 520px;
+            box-shadow: var(--shadow-subtle), var(--shadow-float);
+            transition: all 0.3s ease;
         }
 
+        /* شريط العنوان وزر تغيير اللغة */
         .header-controls {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .brand-badge {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
 
         #langBtn {
-            background: rgba(212, 175, 55, 0.05);
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 6px 16px;
-            border-radius: 20px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 980px;
+            font-size: 13px;
+            font-weight: 500;
             cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
         }
 
         #langBtn:hover {
-            background: var(--accent-color);
-            color: #000;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            background: #fafafa;
+            border-color: rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
         }
 
-        h2 {
-            color: var(--text-main);
-            margin-bottom: 10px;
-            font-size: 24px;
-            letter-spacing: 0.5px;
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.6px;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+            text-align: center;
         }
 
-        p {
-            color: var(--text-muted);
-            margin-bottom: 25px;
+        p.subtitle {
             font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            text-align: center;
+            letter-spacing: -0.2px;
         }
 
-        input {
-            width: 100%;
-            padding: 15px;
+        /* حقل الإدخال بنمط أبل */
+        .input-group {
             margin-bottom: 20px;
-            background-color: var(--input-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s ease;
         }
 
-        input::placeholder {
-            color: #4a4e60;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
-        }
-
-        .generate-btn {
-            background: linear-gradient(135deg, var(--accent-color), #b59226);
-            color: #000;
-            border: none;
-            padding: 15px;
-            font-size: 18px;
-            border-radius: 10px;
-            cursor: pointer;
+        input[type="text"] {
             width: 100%;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            padding: 14px 18px;
+            background: var(--input-bg);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 14px;
+            font-size: 15px;
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
         }
 
-        .generate-btn:hover {
-            background: linear-gradient(135deg, var(--accent-hover), var(--accent-color));
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
-            transform: translateY(-2px);
+        input[type="text"]:focus {
+            border-color: var(--apple-blue);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
         }
 
-        .generate-btn:active {
-            transform: scale(0.98);
+        /* أدوات التخصيص والأشكال المتعددة */
+        .customizer {
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
-        #qrResult {
-            margin-top: 30px;
-            display: none;
-            flex-direction: column;
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+            text-align: start;
+        }
+
+        /* أزرار الاختيار المجزأة (Apple Segmented Controls) */
+        .segmented-control {
+            display: flex;
+            background: var(--control-bg);
+            border-radius: 10px;
+            padding: 3px;
+            margin-bottom: 14px;
+            gap: 2px;
+        }
+
+        .seg-btn {
+            flex: 1;
+            padding: 7px 0;
+            font-size: 13px;
+            font-weight: 500;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .seg-btn.active {
+            background: #ffffff;
+            color: var(--text-primary);
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        /* اختيار الألوان */
+        .color-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 10px;
             align-items: center;
         }
 
-        #qrImage {
-            border: 2px solid var(--accent-color);
-            padding: 15px;
-            border-radius: 15px;
+        .color-circle {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .color-circle:hover {
+            transform: scale(1.15);
+        }
+
+        .color-circle.active {
+            border-color: #ffffff;
+            box-shadow: 0 0 0 2px var(--apple-blue);
+        }
+
+        input[type="color"] {
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        /* الخيارات الإضافية */
+        .options-grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            font-size: 13px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            accent-color: var(--apple-blue);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        /* زر الإنشاء Apple Blue Button */
+        .primary-btn {
+            background: var(--apple-blue);
+            color: #ffffff;
+            border: none;
+            padding: 13px 20px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.25);
+        }
+
+        .primary-btn:hover {
+            background: var(--apple-blue-hover);
+            box-shadow: 0 6px 16px rgba(0, 113, 227, 0.35);
+        }
+
+        .primary-btn:active {
+            transform: scale(0.985);
+        }
+
+        /* نتيجة العرض */
+        #qrResult {
+            margin-top: 24px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .qr-wrapper {
             background: #ffffff;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.15);
-            max-width: 100%;
-            height: auto;
-            transition: all 0.4s ease;
+            padding: 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .download-btn {
+            margin-top: 15px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            color: var(--apple-blue);
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 22px;
+            border-radius: 980px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: #f0f4f9;
+            border-color: var(--apple-blue);
         }
 
         .hint {
-            margin-top: 15px;
+            margin-top: 8px;
             font-size: 13px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
         }
 
-        /* تنسيق قسم الحقوق والروابط */
+        /* تذييل الصفحة / الحقوق */
         .copyright {
-            margin-top: 25px;
-            font-size: 14px;
-            color: var(--text-muted);
+            margin-top: 30px;
+            font-size: 13px;
+            color: var(--text-secondary);
             text-align: center;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
         .copyright a {
-            color: var(--accent-color);
+            color: var(--apple-blue);
             text-decoration: none;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
         }
 
         .copyright a:hover {
-            color: var(--accent-hover);
-            text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+            text-decoration: underline;
         }
 
         .separator {
-            color: var(--border-color);
-            margin: 0 8px;
+            color: rgba(0, 0, 0, 0.2);
+            margin: 0 6px;
         }
 
         .location {
             font-size: 12px;
-            color: #666;
+            color: #999;
             display: block;
-            margin-top: 5px;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -195,44 +366,150 @@
 <body>
 
     <div class="container">
+        <!-- شريط الرأس -->
         <div class="header-controls">
+            <span class="brand-badge">Apple Experience</span>
             <button id="langBtn" onclick="toggleLanguage()">عربي</button>
         </div>
 
-        <h2 id="title">QR Code Generator</h2>
-        <p id="subtitle">Paste your link below:</p>
+        <h1 id="title">QR Code Studio</h1>
+        <p class="subtitle" id="subtitle">Transform links into bespoke, elegant QR designs</p>
 
-        <input type="text" id="linkInput" placeholder="Paste link here..." />
+        <!-- مدخل الرابط -->
+        <div class="input-group">
+            <input type="text" id="linkInput" placeholder="https://apple.com" />
+        </div>
 
-        <button class="generate-btn" id="generateBtn" onclick="generateQR()">Generate QR Code</button>
+        <!-- مصفوفة الأشكال والتخصيص المتعددة -->
+        <div class="customizer">
+            <!-- شكل النقاط والخطوط الداعمة -->
+            <label class="section-label" id="lblDots">Body Style</label>
+            <div class="segmented-control" id="dotsControl">
+                <button class="seg-btn active" onclick="setDotsStyle('rounded', this)" id="btnStyleRounded">Rounded</button>
+                <button class="seg-btn" onclick="setDotsStyle('dots', this)" id="btnStyleDots">Dots</button>
+                <button class="seg-btn" onclick="setDotsStyle('classy-rounded', this)" id="btnStyleClassy">Modern</button>
+                <button class="seg-btn" onclick="setDotsStyle('square', this)" id="btnStyleClassic">Square</button>
+            </div>
 
+            <!-- شكل زوايا القراءة والعيون الخارجية -->
+            <label class="section-label" id="lblCorners">Corner Style</label>
+            <div class="segmented-control" id="cornersControl">
+                <button class="seg-btn active" onclick="setCornerStyle('extra-rounded', this)" id="btnCornerSmooth">Smooth</button>
+                <button class="seg-btn" onclick="setCornerStyle('dot', this)" id="btnCornerCircle">Circle</button>
+                <button class="seg-btn" onclick="setCornerStyle('square', this)" id="btnCornerSquare">Classic</button>
+            </div>
+
+            <!-- لوحة الألوان البسيطة المستوحاة من درجات أجهزة أبل -->
+            <div class="color-row">
+                <label class="section-label" style="margin-bottom:0;" id="lblColor">Palette</label>
+                <div class="color-palette">
+                    <!-- أسود منتصف الليل / كحلي فضائي / أزرق آبل / بنفسجي / ذهبي ستانلس -->
+                    <div class="color-circle active" style="background: #1d1d1f;" onclick="setColor('#1d1d1f', this)"></div>
+                    <div class="color-circle" style="background: #0071e3;" onclick="setColor('#0071e3', this)"></div>
+                    <div class="color-circle" style="background: #34c759;" onclick="setColor('#34c759', this)"></div>
+                    <div class="color-circle" style="background: #af52de;" onclick="setColor('#af52de', this)"></div>
+                    <div class="color-circle" style="background: #e3a857;" onclick="setColor('#e3a857', this)"></div>
+                    <!-- منتقي ألوان حر -->
+                    <input type="color" id="customColorPicker" value="#1d1d1f" onchange="onCustomColorPicked(this.value)" title="Choose custom color">
+                </div>
+            </div>
+
+            <!-- تضمين شعار أبل في المنتصف -->
+            <div class="options-grid">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="logoCheck" onchange="generateQR()">
+                    <span id="lblLogo">Embed Apple Logo</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- زر التوليد -->
+        <button class="primary-btn" id="generateBtn" onclick="generateQR()">Generate QR Code</button>
+
+        <!-- نتيجة الـ QR Code المستخرج -->
         <div id="qrResult">
-            <img id="qrImage" src="" alt="QR Code">
-            <p class="hint" id="hintText">Right-click (or long press on mobile) the image to save it</p>
+            <div class="qr-wrapper" id="qrCanvasContainer"></div>
+            <button class="download-btn" onclick="downloadQR()" id="downloadBtn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Save Image</span>
+            </button>
+            <p class="hint" id="hintText">Touch & hold or right-click to copy</p>
         </div>
     </div>
 
-    <div class="copyright" id="copyrightText">
-    </div>
+    <!-- التذييل والمعلومات -->
+    <div class="copyright" id="copyrightText"></div>
 
     <script>
-        // إعدادات اللغات (الافتراضي هو الإنجليزي)
         let currentLang = 'en';
 
-        // بيانات الشخصية 
+        // روابط التواصل
         const myLinkedIn = "https://www.linkedin.com/in/mbnq";
         const myEmail = "mailto:mbnq1@outlook.com";
 
+        // إعدادات الـ QR الحالية
+        let qrConfig = {
+            dotsStyle: 'rounded',
+            cornerStyle: 'extra-rounded',
+            color: '#1d1d1f',
+            withLogo: false
+        };
 
+        // أيقونة شعار أبل SVG Base64 مدمجة وعالية الوضوح
+        const appleLogoSvg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 170' width='100' height='100'><path fill='%231d1d1f' d='M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.92-3.37-7.93-8.1-12.04-14.18-5.55-8.26-9.98-17.75-13.29-28.46-3.3-10.7-4.96-20.9-4.96-30.61 0-14.45 3.73-26.68 11.19-36.68 7.45-10 16.9-15.1 28.34-15.3 4.89 0 10.38 1.34 16.47 4.02 6.09 2.68 10.02 4.08 11.78 4.2 1.35-.2 5.37-1.63 12.06-4.29 6.69-2.66 12.02-3.83 15.98-3.52 10.66.75 19.34 4.54 26.04 11.38 6.7 6.83 11.05 15.18 13.06 25.04-9.35 5.63-14.07 13.56-14.16 23.78-.09 8.24 3.06 15.34 9.46 21.31 6.39 5.97 14.18 9.58 23.36 10.82-1.74 5.76-3.8 11.36-6.19 16.8zM119.22 33.11c0-6.18 2.3-12.24 6.9-18.17 4.6-5.93 10.45-10.23 17.55-12.91.73 6.13-.53 12.03-3.79 17.7-3.26 5.67-8.1 9.94-14.52 12.81-.88.2-1.55.3-2.01.3-.23-.01-.73-.59-4.13.27z'/></svg>";
+
+        // كائن مولد الباركود من مكتبة qr-code-styling
+        let qrCode = new QRCodeStyling({
+            width: 250,
+            height: 250,
+            type: "svg",
+            data: "",
+            image: "",
+            dotsOptions: {
+                color: "#1d1d1f",
+                type: "rounded"
+            },
+            backgroundOptions: {
+                color: "#ffffff",
+            },
+            cornersSquareOptions: {
+                type: "extra-rounded",
+                color: "#1d1d1f"
+            },
+            cornersDotOptions: {
+                type: "dot",
+                color: "#1d1d1f"
+            },
+            imageOptions: {
+                crossOrigin: "anonymous",
+                margin: 5,
+                imageSize: 0.35
+            }
+        });
+
+        // محتويات اللغات
         const translations = {
             ar: {
                 langBtn: "English",
-                title: "أداة صنع الباركود",
-                subtitle: "ضع أي في المربع أدناه:",
-                placeholder: "الصق الرابط هنا...",
-                generateBtn: "إنشاء الباركود الآن",
-                hintText: "اضغط بزر الماوس الأيمن على الصورة (أو مطولاً بالجوال) لحفظها",
-                alertMsg: " ألصق رابط أولاً!",
+                badge: "تصميم بنكهة أبل",
+                title: "استوديو الباركود",
+                subtitle: "صمّم باركود احترافي وفريد بأنماط متعددة ونقية",
+                placeholder: "ضع الرابط هنا... https://example.com",
+                generateBtn: "إنشاء الباركود",
+                downloadBtn: "حفظ كصورة بجودة عالية",
+                lblDots: "شكل النقاط والجسد",
+                lblCorners: "شكل زوايا الكود",
+                lblColor: "ألوان مخصصة",
+                lblLogo: "إضافة شعار Apple بالمنتصف",
+                btnStyleRounded: "مستدير",
+                btnStyleDots: "دوائر",
+                btnStyleClassy: "عصري",
+                btnStyleClassic: "مربّع",
+                btnCornerSmooth: "ناعم",
+                btnCornerCircle: "دائري",
+                btnCornerSquare: "مربّع",
+                hintText: "اضغط بزر الماوس الأيمن أو مطولاً للحفظ والمشاركة",
+                alertMsg: "الرجاء كتابة أو لصق رابط أولاً!",
                 copyright: `جميع الحقوق محفوظة &copy; 2026<br>
                             <a href="${myLinkedIn}" target="_blank">محمد نواف</a> 
                             <span class="separator">|</span> 
@@ -241,12 +518,25 @@
             },
             en: {
                 langBtn: "عربي",
-                title: "QR Code Generator",
-                subtitle: "Paste your link below:",
-                placeholder: "Paste link here...",
+                badge: "Apple Experience",
+                title: "QR Code Studio",
+                subtitle: "Transform links into bespoke, elegant QR designs",
+                placeholder: "Paste your link here... https://apple.com",
                 generateBtn: "Generate QR Code",
-                hintText: "Right-click (or long press on mobile) the image to save it",
-                alertMsg: " Paste a link first!",
+                downloadBtn: "Download High-Res PNG",
+                lblDots: "Body Style",
+                lblCorners: "Corner Style",
+                lblColor: "Palette",
+                lblLogo: "Embed Apple Logo",
+                btnStyleRounded: "Rounded",
+                btnStyleDots: "Dots",
+                btnStyleClassy: "Modern",
+                btnStyleClassic: "Square",
+                btnCornerSmooth: "Smooth",
+                btnCornerCircle: "Circle",
+                btnCornerSquare: "Classic",
+                hintText: "Touch & hold or right-click to copy",
+                alertMsg: "Please paste a link first!",
                 copyright: `All Rights Reserved &copy; 2026<br>
                             <a href="${myLinkedIn}" target="_blank">Mohammed Nawaf</a> 
                             <span class="separator">|</span> 
@@ -255,53 +545,119 @@
             }
         };
 
-        // تعيين النصوص عند تحميل الصفحة لأول مرة
+        // تفعيل نص الحقوق المبدئي
         document.getElementById('copyrightText').innerHTML = translations['en'].copyright;
 
-        // دالة تغيير اللغة
+        // تبديل اللغة (عربي / إنجليزي)
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'ar' : 'en';
             const t = translations[currentLang];
 
-            // تغيير اتجاه الصفحة
             document.getElementById('html-tag').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
             document.getElementById('html-tag').lang = currentLang;
 
-            // تغيير النصوص
             document.getElementById('langBtn').innerText = t.langBtn;
+            document.querySelector('.brand-badge').innerText = t.badge;
             document.getElementById('title').innerText = t.title;
             document.getElementById('subtitle').innerText = t.subtitle;
             document.getElementById('linkInput').placeholder = t.placeholder;
             document.getElementById('generateBtn').innerText = t.generateBtn;
             document.getElementById('hintText').innerText = t.hintText;
+            document.querySelector('#downloadBtn span').innerText = t.downloadBtn;
 
-            // تغيير نص الحقوق
+            document.getElementById('lblDots').innerText = t.lblDots;
+            document.getElementById('lblCorners').innerText = t.lblCorners;
+            document.getElementById('lblColor').innerText = t.lblColor;
+            document.getElementById('lblLogo').innerText = t.lblLogo;
+
+            document.getElementById('btnStyleRounded').innerText = t.btnStyleRounded;
+            document.getElementById('btnStyleDots').innerText = t.btnStyleDots;
+            document.getElementById('btnStyleClassy').innerText = t.btnStyleClassy;
+            document.getElementById('btnStyleClassic').innerText = t.btnStyleClassic;
+
+            document.getElementById('btnCornerSmooth').innerText = t.btnCornerSmooth;
+            document.getElementById('btnCornerCircle').innerText = t.btnCornerCircle;
+            document.getElementById('btnCornerSquare').innerText = t.btnCornerSquare;
+
             document.getElementById('copyrightText').innerHTML = t.copyright;
         }
 
-        // دالة توليد الباركود
-        function generateQR() {
-            var link = document.getElementById('linkInput').value;
-            var resultDiv = document.getElementById('qrResult');
-            var imgElement = document.getElementById('qrImage');
+        // تحديد نمط النقاط والجسد
+        function setDotsStyle(style, btn) {
+            qrConfig.dotsStyle = style;
+            setActiveSegment(btn, 'dotsControl');
+            if (document.getElementById('qrResult').style.display === "flex") {
+                generateQR();
+            }
+        }
 
-            // التأكد من وجود رابط
-            if (link.trim() === "") {
+        // تحديد نمط الزوايا
+        function setCornerStyle(style, btn) {
+            qrConfig.cornerStyle = style;
+            setActiveSegment(btn, 'cornersControl');
+            if (document.getElementById('qrResult').style.display === "flex") {
+                generateQR();
+            }
+        }
+
+        // ضبط اللون
+        function setColor(hex, el) {
+            qrConfig.color = hex;
+            document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
+            if (el) el.classList.add('active');
+            if (document.getElementById('qrResult').style.display === "flex") {
+                generateQR();
+            }
+        }
+
+        function onCustomColorPicked(val) {
+            setColor(val, null);
+        }
+
+        function setActiveSegment(button, containerId) {
+            const container = document.getElementById(containerId);
+            container.querySelectorAll('.seg-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        }
+
+        // توليد الباركود
+        function generateQR() {
+            const link = document.getElementById('linkInput').value.trim();
+            const resultDiv = document.getElementById('qrResult');
+            const container = document.getElementById('qrCanvasContainer');
+            const hasLogo = document.getElementById('logoCheck').checked;
+
+            if (!link) {
                 alert(translations[currentLang].alertMsg);
                 return;
             }
 
-            // إخفاء الصورة مؤقتاً لحين تحميل الجديدة
-            resultDiv.style.display = "none";
+            container.innerHTML = "";
 
-            // جلب الباركود وعرضه
-            var apiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(link);
-            imgElement.src = apiUrl;
+            qrCode.update({
+                data: link,
+                image: hasLogo ? appleLogoSvg : "",
+                dotsOptions: {
+                    color: qrConfig.color,
+                    type: qrConfig.dotsStyle
+                },
+                cornersSquareOptions: {
+                    type: qrConfig.cornerStyle,
+                    color: qrConfig.color
+                },
+                cornersDotOptions: {
+                    type: qrConfig.cornerStyle === 'square' ? 'square' : 'dot',
+                    color: qrConfig.color
+                }
+            });
 
-            // إظهار القسم بمجرد اكتمال تحميل الصورة
-            imgElement.onload = function () {
-                resultDiv.style.display = "flex";
-            };
+            qrCode.append(container);
+            resultDiv.style.display = "flex";
+        }
+
+        // تنزيل كصورة PNG نقية
+        function downloadQR() {
+            qrCode.download({ name: "AppleStyle-QRCode", extension: "png" });
         }
     </script>
 
