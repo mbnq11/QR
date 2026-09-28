@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Studio | Apple Design</title>
-    <!-- تضمين مكتبة التوليد الاحترافية للأشكال المختلفة -->
     <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <style>
         :root {
@@ -41,7 +40,6 @@
             padding: 40px 20px;
         }
 
-        /* حاوية التصميم - أسلوب آبل الزجاجي */
         .container {
             background: var(--card-bg);
             backdrop-filter: blur(20px);
@@ -55,7 +53,6 @@
             transition: all 0.3s ease;
         }
 
-        /* شريط العنوان وزر تغيير اللغة */
         .header-controls {
             display: flex;
             justify-content: space-between;
@@ -107,7 +104,6 @@
             letter-spacing: -0.2px;
         }
 
-        /* حقل الإدخال بنمط أبل */
         .input-group {
             margin-bottom: 20px;
         }
@@ -130,7 +126,6 @@
             box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
         }
 
-        /* أدوات التخصيص والأشكال المتعددة */
         .customizer {
             background: rgba(0, 0, 0, 0.02);
             border-radius: 18px;
@@ -150,7 +145,6 @@
             text-align: start;
         }
 
-        /* أزرار الاختيار المجزأة (Apple Segmented Controls) */
         .segmented-control {
             display: flex;
             background: var(--control-bg);
@@ -180,12 +174,11 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
 
-        /* اختيار الألوان */
         .color-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 10px;
+            margin-top: 4px;
         }
 
         .color-palette {
@@ -221,33 +214,6 @@
             background: transparent;
         }
 
-        /* الخيارات الإضافية */
-        .options-grid {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 12px;
-            padding-top: 10px;
-            border-top: 1px solid rgba(0, 0, 0, 0.06);
-            font-size: 13px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .checkbox-container input {
-            accent-color: var(--apple-blue);
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-
-        /* زر الإنشاء Apple Blue Button */
         .primary-btn {
             background: var(--apple-blue);
             color: #ffffff;
@@ -271,7 +237,6 @@
             transform: scale(0.985);
         }
 
-        /* نتيجة العرض */
         #qrResult {
             margin-top: 24px;
             display: none;
@@ -329,7 +294,6 @@
             color: var(--text-secondary);
         }
 
-        /* تذييل الصفحة / الحقوق */
         .copyright {
             margin-top: 30px;
             font-size: 13px;
@@ -366,23 +330,19 @@
 <body>
 
     <div class="container">
-        <!-- شريط الرأس -->
         <div class="header-controls">
-            <span class="brand-badge">Apple Experience</span>
+            <span class="brand-badge">Apple Design</span>
             <button id="langBtn" onclick="toggleLanguage()">عربي</button>
         </div>
 
         <h1 id="title">QR Code Studio</h1>
         <p class="subtitle" id="subtitle">Transform links into bespoke, elegant QR designs</p>
 
-        <!-- مدخل الرابط -->
         <div class="input-group">
-            <input type="text" id="linkInput" placeholder="https://apple.com" />
+            <input type="text" id="linkInput" placeholder="https://example.com" />
         </div>
 
-        <!-- مصفوفة الأشكال والتخصيص المتعددة -->
         <div class="customizer">
-            <!-- شكل النقاط والخطوط الداعمة -->
             <label class="section-label" id="lblDots">Body Style</label>
             <div class="segmented-control" id="dotsControl">
                 <button class="seg-btn active" onclick="setDotsStyle('rounded', this)" id="btnStyleRounded">Rounded</button>
@@ -391,7 +351,6 @@
                 <button class="seg-btn" onclick="setDotsStyle('square', this)" id="btnStyleClassic">Square</button>
             </div>
 
-            <!-- شكل زوايا القراءة والعيون الخارجية -->
             <label class="section-label" id="lblCorners">Corner Style</label>
             <div class="segmented-control" id="cornersControl">
                 <button class="seg-btn active" onclick="setCornerStyle('extra-rounded', this)" id="btnCornerSmooth">Smooth</button>
@@ -399,34 +358,21 @@
                 <button class="seg-btn" onclick="setCornerStyle('square', this)" id="btnCornerSquare">Classic</button>
             </div>
 
-            <!-- لوحة الألوان البسيطة المستوحاة من درجات أجهزة أبل -->
             <div class="color-row">
                 <label class="section-label" style="margin-bottom:0;" id="lblColor">Palette</label>
                 <div class="color-palette">
-                    <!-- أسود منتصف الليل / كحلي فضائي / أزرق آبل / بنفسجي / ذهبي ستانلس -->
                     <div class="color-circle active" style="background: #1d1d1f;" onclick="setColor('#1d1d1f', this)"></div>
                     <div class="color-circle" style="background: #0071e3;" onclick="setColor('#0071e3', this)"></div>
                     <div class="color-circle" style="background: #34c759;" onclick="setColor('#34c759', this)"></div>
                     <div class="color-circle" style="background: #af52de;" onclick="setColor('#af52de', this)"></div>
                     <div class="color-circle" style="background: #e3a857;" onclick="setColor('#e3a857', this)"></div>
-                    <!-- منتقي ألوان حر -->
                     <input type="color" id="customColorPicker" value="#1d1d1f" onchange="onCustomColorPicked(this.value)" title="Choose custom color">
                 </div>
             </div>
-
-            <!-- تضمين شعار أبل في المنتصف -->
-            <div class="options-grid">
-                <label class="checkbox-container">
-                    <input type="checkbox" id="logoCheck" onchange="generateQR()">
-                    <span id="lblLogo">Embed Apple Logo</span>
-                </label>
-            </div>
         </div>
 
-        <!-- زر التوليد -->
         <button class="primary-btn" id="generateBtn" onclick="generateQR()">Generate QR Code</button>
 
-        <!-- نتيجة الـ QR Code المستخرج -->
         <div id="qrResult">
             <div class="qr-wrapper" id="qrCanvasContainer"></div>
             <button class="download-btn" onclick="downloadQR()" id="downloadBtn">
@@ -437,34 +383,25 @@
         </div>
     </div>
 
-    <!-- التذييل والمعلومات -->
     <div class="copyright" id="copyrightText"></div>
 
     <script>
         let currentLang = 'en';
 
-        // روابط التواصل
         const myLinkedIn = "https://www.linkedin.com/in/mbnq";
         const myEmail = "mailto:mbnq1@outlook.com";
 
-        // إعدادات الـ QR الحالية
         let qrConfig = {
             dotsStyle: 'rounded',
             cornerStyle: 'extra-rounded',
-            color: '#1d1d1f',
-            withLogo: false
+            color: '#1d1d1f'
         };
 
-        // أيقونة شعار أبل SVG Base64 مدمجة وعالية الوضوح
-        const appleLogoSvg = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 170 170' width='100' height='100'><path fill='%231d1d1f' d='M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.92-3.37-7.93-8.1-12.04-14.18-5.55-8.26-9.98-17.75-13.29-28.46-3.3-10.7-4.96-20.9-4.96-30.61 0-14.45 3.73-26.68 11.19-36.68 7.45-10 16.9-15.1 28.34-15.3 4.89 0 10.38 1.34 16.47 4.02 6.09 2.68 10.02 4.08 11.78 4.2 1.35-.2 5.37-1.63 12.06-4.29 6.69-2.66 12.02-3.83 15.98-3.52 10.66.75 19.34 4.54 26.04 11.38 6.7 6.83 11.05 15.18 13.06 25.04-9.35 5.63-14.07 13.56-14.16 23.78-.09 8.24 3.06 15.34 9.46 21.31 6.39 5.97 14.18 9.58 23.36 10.82-1.74 5.76-3.8 11.36-6.19 16.8zM119.22 33.11c0-6.18 2.3-12.24 6.9-18.17 4.6-5.93 10.45-10.23 17.55-12.91.73 6.13-.53 12.03-3.79 17.7-3.26 5.67-8.1 9.94-14.52 12.81-.88.2-1.55.3-2.01.3-.23-.01-.73-.59-4.13.27z'/></svg>";
-
-        // كائن مولد الباركود من مكتبة qr-code-styling
         let qrCode = new QRCodeStyling({
             width: 250,
             height: 250,
             type: "svg",
             data: "",
-            image: "",
             dotsOptions: {
                 color: "#1d1d1f",
                 type: "rounded"
@@ -479,28 +416,21 @@
             cornersDotOptions: {
                 type: "dot",
                 color: "#1d1d1f"
-            },
-            imageOptions: {
-                crossOrigin: "anonymous",
-                margin: 5,
-                imageSize: 0.35
             }
         });
 
-        // محتويات اللغات
         const translations = {
             ar: {
                 langBtn: "English",
-                badge: "تصميم بنكهة أبل",
+                badge: "تصميم بنمط آبل",
                 title: "استوديو الباركود",
-                subtitle: "صمّم باركود احترافي وفريد بأنماط متعددة ونقية",
+                subtitle: "صمّم باركود احترافي بأشكال عصرية ونقية",
                 placeholder: "ضع الرابط هنا... https://example.com",
                 generateBtn: "إنشاء الباركود",
                 downloadBtn: "حفظ كصورة بجودة عالية",
                 lblDots: "شكل النقاط والجسد",
                 lblCorners: "شكل زوايا الكود",
                 lblColor: "ألوان مخصصة",
-                lblLogo: "إضافة شعار Apple بالمنتصف",
                 btnStyleRounded: "مستدير",
                 btnStyleDots: "دوائر",
                 btnStyleClassy: "عصري",
@@ -518,16 +448,15 @@
             },
             en: {
                 langBtn: "عربي",
-                badge: "Apple Experience",
+                badge: "Apple Design",
                 title: "QR Code Studio",
                 subtitle: "Transform links into bespoke, elegant QR designs",
-                placeholder: "Paste your link here... https://apple.com",
+                placeholder: "Paste your link here... https://example.com",
                 generateBtn: "Generate QR Code",
                 downloadBtn: "Download High-Res PNG",
                 lblDots: "Body Style",
                 lblCorners: "Corner Style",
                 lblColor: "Palette",
-                lblLogo: "Embed Apple Logo",
                 btnStyleRounded: "Rounded",
                 btnStyleDots: "Dots",
                 btnStyleClassy: "Modern",
@@ -545,10 +474,8 @@
             }
         };
 
-        // تفعيل نص الحقوق المبدئي
         document.getElementById('copyrightText').innerHTML = translations['en'].copyright;
 
-        // تبديل اللغة (عربي / إنجليزي)
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'ar' : 'en';
             const t = translations[currentLang];
@@ -568,7 +495,6 @@
             document.getElementById('lblDots').innerText = t.lblDots;
             document.getElementById('lblCorners').innerText = t.lblCorners;
             document.getElementById('lblColor').innerText = t.lblColor;
-            document.getElementById('lblLogo').innerText = t.lblLogo;
 
             document.getElementById('btnStyleRounded').innerText = t.btnStyleRounded;
             document.getElementById('btnStyleDots').innerText = t.btnStyleDots;
@@ -582,7 +508,6 @@
             document.getElementById('copyrightText').innerHTML = t.copyright;
         }
 
-        // تحديد نمط النقاط والجسد
         function setDotsStyle(style, btn) {
             qrConfig.dotsStyle = style;
             setActiveSegment(btn, 'dotsControl');
@@ -591,7 +516,6 @@
             }
         }
 
-        // تحديد نمط الزوايا
         function setCornerStyle(style, btn) {
             qrConfig.cornerStyle = style;
             setActiveSegment(btn, 'cornersControl');
@@ -600,7 +524,6 @@
             }
         }
 
-        // ضبط اللون
         function setColor(hex, el) {
             qrConfig.color = hex;
             document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
@@ -620,12 +543,10 @@
             button.classList.add('active');
         }
 
-        // توليد الباركود
         function generateQR() {
             const link = document.getElementById('linkInput').value.trim();
             const resultDiv = document.getElementById('qrResult');
             const container = document.getElementById('qrCanvasContainer');
-            const hasLogo = document.getElementById('logoCheck').checked;
 
             if (!link) {
                 alert(translations[currentLang].alertMsg);
@@ -636,7 +557,6 @@
 
             qrCode.update({
                 data: link,
-                image: hasLogo ? appleLogoSvg : "",
                 dotsOptions: {
                     color: qrConfig.color,
                     type: qrConfig.dotsStyle
@@ -655,7 +575,6 @@
             resultDiv.style.display = "flex";
         }
 
-        // تنزيل كصورة PNG نقية
         function downloadQR() {
             qrCode.download({ name: "AppleStyle-QRCode", extension: "png" });
         }
