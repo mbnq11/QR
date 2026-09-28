@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Studio | Apple Design</title>
+    <title>QR Studio | Modern Generator</title>
     <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <style>
         :root {
@@ -13,8 +13,8 @@
             --card-border: rgba(0, 0, 0, 0.08);
             --text-primary: #1d1d1f;
             --text-secondary: #86868b;
-            --apple-blue: #0071e3;
-            --apple-blue-hover: #0077ed;
+            --accent-blue: #0071e3;
+            --accent-blue-hover: #0077ed;
             --input-bg: #ffffff;
             --control-bg: #e5e5ea;
             --shadow-subtle: 0 4px 24px -1px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
@@ -29,7 +29,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-family: BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-primary);
             min-height: 100vh;
@@ -122,7 +122,7 @@
         }
 
         input[type="text"]:focus {
-            border-color: var(--apple-blue);
+            border-color: var(--accent-blue);
             box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
         }
 
@@ -202,7 +202,7 @@
 
         .color-circle.active {
             border-color: #ffffff;
-            box-shadow: 0 0 0 2px var(--apple-blue);
+            box-shadow: 0 0 0 2px var(--accent-blue);
         }
 
         input[type="color"] {
@@ -215,7 +215,7 @@
         }
 
         .primary-btn {
-            background: var(--apple-blue);
+            background: var(--accent-blue);
             color: #ffffff;
             border: none;
             padding: 13px 20px;
@@ -229,7 +229,7 @@
         }
 
         .primary-btn:hover {
-            background: var(--apple-blue-hover);
+            background: var(--accent-blue-hover);
             box-shadow: 0 6px 16px rgba(0, 113, 227, 0.35);
         }
 
@@ -271,7 +271,7 @@
             margin-top: 15px;
             background: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.15);
-            color: var(--apple-blue);
+            color: var(--accent-blue);
             font-weight: 600;
             font-size: 14px;
             padding: 10px 22px;
@@ -285,7 +285,7 @@
 
         .download-btn:hover {
             background: #f0f4f9;
-            border-color: var(--apple-blue);
+            border-color: var(--accent-blue);
         }
 
         .hint {
@@ -303,7 +303,7 @@
         }
 
         .copyright a {
-            color: var(--apple-blue);
+            color: var(--accent-blue);
             text-decoration: none;
             font-weight: 500;
             transition: opacity 0.2s ease;
@@ -331,7 +331,7 @@
 
     <div class="container">
         <div class="header-controls">
-            <span class="brand-badge">Apple Design</span>
+            <span class="brand-badge" id="badgeText">Minimal Studio</span>
             <button id="langBtn" onclick="toggleLanguage()">عربي</button>
         </div>
 
@@ -422,7 +422,7 @@
         const translations = {
             ar: {
                 langBtn: "English",
-                badge: "تصميم بنمط آبل",
+                badge: "تصميم عصري ونظيف",
                 title: "استوديو الباركود",
                 subtitle: "صمّم باركود احترافي بأشكال عصرية ونقية",
                 placeholder: "ضع الرابط هنا... https://example.com",
@@ -448,7 +448,7 @@
             },
             en: {
                 langBtn: "عربي",
-                badge: "Apple Design",
+                badge: "Minimal Studio",
                 title: "QR Code Studio",
                 subtitle: "Transform links into bespoke, elegant QR designs",
                 placeholder: "Paste your link here... https://example.com",
@@ -484,7 +484,7 @@
             document.getElementById('html-tag').lang = currentLang;
 
             document.getElementById('langBtn').innerText = t.langBtn;
-            document.querySelector('.brand-badge').innerText = t.badge;
+            document.getElementById('badgeText').innerText = t.badge;
             document.getElementById('title').innerText = t.title;
             document.getElementById('subtitle').innerText = t.subtitle;
             document.getElementById('linkInput').placeholder = t.placeholder;
@@ -576,7 +576,7 @@
         }
 
         function downloadQR() {
-            qrCode.download({ name: "AppleStyle-QRCode", extension: "png" });
+            qrCode.download({ name: "Minimal-QRCode", extension: "png" });
         }
     </script>
 
