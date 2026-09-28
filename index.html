@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Studio | Modern Generator</title>
+    <title>QR Studio</title>
     <script src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <style>
         :root {
@@ -15,6 +15,7 @@
             --text-secondary: #86868b;
             --accent-blue: #0071e3;
             --accent-blue-hover: #0077ed;
+            --accent-green: #34c759;
             --input-bg: #ffffff;
             --control-bg: #e5e5ea;
             --shadow-subtle: 0 4px 24px -1px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
@@ -60,12 +61,14 @@
             margin-bottom: 24px;
         }
 
-        .brand-badge {
-            font-size: 13px;
+        .badge-free {
+            background: rgba(52, 199, 89, 0.12);
+            color: #248a3d;
+            font-size: 12px;
             font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
+            padding: 4px 10px;
+            border-radius: 980px;
+            letter-spacing: 0.3px;
         }
 
         #langBtn {
@@ -331,12 +334,12 @@
 
     <div class="container">
         <div class="header-controls">
-            <span class="brand-badge" id="badgeText">Minimal Studio</span>
+            <span class="badge-free" id="badgeFree">100% Free</span>
             <button id="langBtn" onclick="toggleLanguage()">عربي</button>
         </div>
 
         <h1 id="title">QR Code Studio</h1>
-        <p class="subtitle" id="subtitle">Transform links into bespoke, elegant QR designs</p>
+        <p class="subtitle" id="subtitle">100% Free tool to create bespoke, elegant QR designs</p>
 
         <div class="input-group">
             <input type="text" id="linkInput" placeholder="https://example.com" />
@@ -371,7 +374,7 @@
             </div>
         </div>
 
-        <button class="primary-btn" id="generateBtn" onclick="generateQR()">Generate QR Code</button>
+        <button class="primary-btn" id="generateBtn" onclick="generateQR()">Generate QR Code (Free)</button>
 
         <div id="qrResult">
             <div class="qr-wrapper" id="qrCanvasContainer"></div>
@@ -388,7 +391,7 @@
     <script>
         let currentLang = 'en';
 
-        const myLinkedIn = "https://www.linkedin.com/in/mbnq";
+        const myLinkedIn = "https://linkedin.com/in/mbnq";
         const myEmail = "mailto:mbnq1@outlook.com";
 
         let qrConfig = {
@@ -422,11 +425,11 @@
         const translations = {
             ar: {
                 langBtn: "English",
-                badge: "تصميم عصري ونظيف",
+                badgeFree: "مجاني 100%",
                 title: "استوديو الباركود",
-                subtitle: "صمّم باركود احترافي بأشكال عصرية ونقية",
+                subtitle: "أداة مجانية بالكامل لإنشاء باركود احترافي بأشكال عصرية ونقية",
                 placeholder: "ضع الرابط هنا... https://example.com",
-                generateBtn: "إنشاء الباركود",
+                generateBtn: "إنشاء الباركود مجاناً",
                 downloadBtn: "حفظ كصورة بجودة عالية",
                 lblDots: "شكل النقاط والجسد",
                 lblCorners: "شكل زوايا الكود",
@@ -441,18 +444,18 @@
                 hintText: "اضغط بزر الماوس الأيمن أو مطولاً للحفظ والمشاركة",
                 alertMsg: "الرجاء كتابة أو لصق رابط أولاً!",
                 copyright: `جميع الحقوق محفوظة &copy; 2026<br>
-                            <a href="${myLinkedIn}" target="_blank">محمد نواف</a> 
+                            تطوير: <a href="${myLinkedIn}" target="_blank" rel="noopener noreferrer">LinkedIn (mbnq)</a> 
                             <span class="separator">|</span> 
                             <a href="${myEmail}">الإيميل</a>
                             <span class="location">المملكة العربية السعودية</span>`
             },
             en: {
                 langBtn: "عربي",
-                badge: "Minimal Studio",
+                badgeFree: "100% Free",
                 title: "QR Code Studio",
-                subtitle: "Transform links into bespoke, elegant QR designs",
+                subtitle: "100% Free tool to create bespoke, elegant QR designs",
                 placeholder: "Paste your link here... https://example.com",
-                generateBtn: "Generate QR Code",
+                generateBtn: "Generate QR Code (Free)",
                 downloadBtn: "Download High-Res PNG",
                 lblDots: "Body Style",
                 lblCorners: "Corner Style",
@@ -467,7 +470,7 @@
                 hintText: "Touch & hold or right-click to copy",
                 alertMsg: "Please paste a link first!",
                 copyright: `All Rights Reserved &copy; 2026<br>
-                            <a href="${myLinkedIn}" target="_blank">Mohammed Nawaf</a> 
+                            Developed by: <a href="${myLinkedIn}" target="_blank" rel="noopener noreferrer">LinkedIn (mbnq)</a> 
                             <span class="separator">|</span> 
                             <a href="${myEmail}">Email</a>
                             <span class="location">Saudi Arabia</span>`
@@ -484,7 +487,7 @@
             document.getElementById('html-tag').lang = currentLang;
 
             document.getElementById('langBtn').innerText = t.langBtn;
-            document.getElementById('badgeText').innerText = t.badge;
+            document.getElementById('badgeFree').innerText = t.badgeFree;
             document.getElementById('title').innerText = t.title;
             document.getElementById('subtitle').innerText = t.subtitle;
             document.getElementById('linkInput').placeholder = t.placeholder;
@@ -576,7 +579,7 @@
         }
 
         function downloadQR() {
-            qrCode.download({ name: "Minimal-QRCode", extension: "png" });
+            qrCode.download({ name: "QRCode", extension: "png" });
         }
     </script>
 
