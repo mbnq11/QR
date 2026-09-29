@@ -15,7 +15,7 @@
             --text-secondary: #86868b;
             --accent-blue: #0071e3;
             --accent-blue-hover: #0077ed;
-            --accent-green: #34c759;
+            --accent-green: #28a745;
             --input-bg: #ffffff;
             --control-bg: #e5e5ea;
             --shadow-subtle: 0 4px 24px -1px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
@@ -56,17 +56,27 @@
 
         .header-controls {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
+        }
+
+        .badge-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
         }
 
         .badge-free {
-            background: rgba(52, 199, 89, 0.12);
-            color: #248a3d;
-            font-size: 12px;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            color: var(--accent-green);
+            font-size: 12.5px;
             font-weight: 600;
-            padding: 5px 12px;
+            padding: 6px 16px;
             border-radius: 980px;
             letter-spacing: 0.3px;
         }
@@ -94,7 +104,7 @@
             font-size: 28px;
             font-weight: 700;
             letter-spacing: -0.6px;
-            margin-bottom: 24px;
+            margin-bottom: 14px;
             color: var(--text-primary);
             text-align: center;
         }
@@ -319,11 +329,14 @@
 
     <div class="container">
         <div class="header-controls">
-            <span class="badge-free" id="badgeFree">No Expiry &bull; Unlimited &bull; 100% Free</span>
             <button id="langBtn" onclick="toggleLanguage()">عربي</button>
         </div>
 
         <h1 id="title">QR Code Studio</h1>
+
+        <div class="badge-wrapper">
+            <span class="badge-free" id="badgeFree">No Expiry Unlimited 100% Free</span>
+        </div>
 
         <div class="input-group">
             <input type="text" id="linkInput" placeholder="https://example.com" />
@@ -409,7 +422,7 @@
         const translations = {
             ar: {
                 langBtn: "English",
-                badgeFree: "بدون صلاحية • لا محدود • مجاني 100%",
+                badgeFree: "بدون صلاحية لا محدود مجاني 100%",
                 title: "استوديو الباركود",
                 placeholder: "ضع الرابط هنا... https://example.com",
                 generateBtn: "إنشاء الباركود",
@@ -433,7 +446,7 @@
             },
             en: {
                 langBtn: "عربي",
-                badgeFree: "No Expiry • Unlimited • 100% Free",
+                badgeFree: "No Expiry Unlimited 100% Free",
                 title: "QR Code Studio",
                 placeholder: "Paste your link here... https://example.com",
                 generateBtn: "Generate QR Code",
