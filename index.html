@@ -186,37 +186,52 @@
             margin-top: 4px;
         }
 
-        .color-palette {
+        .color-picker-trigger {
+            position: relative;
             display: flex;
-            gap: 10px;
             align-items: center;
-        }
-
-        .color-circle {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
+            gap: 10px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            padding: 5px 12px 5px 6px;
+            border-radius: 980px;
             cursor: pointer;
-            border: 2px solid transparent;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
         }
 
-        .color-circle:hover {
-            transform: scale(1.15);
+        .color-picker-trigger:hover {
+            border-color: rgba(0, 0, 0, 0.25);
+            transform: translateY(-1px);
         }
 
-        .color-circle.active {
-            border-color: #ffffff;
-            box-shadow: 0 0 0 2px var(--accent-blue);
+        .color-preview-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #1d1d1f;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+            pointer-events: none;
         }
 
-        input[type="color"] {
+        .color-hex-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: monospace;
+            pointer-events: none;
+        }
+
+        #customColorPicker {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
             border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            background: transparent;
+            padding: 0;
         }
 
         .primary-btn {
@@ -359,14 +374,11 @@
             </div>
 
             <div class="color-row">
-                <label class="section-label" style="margin-bottom:0;" id="lblColor">Palette</label>
-                <div class="color-palette">
-                    <div class="color-circle active" style="background: #1d1d1f;" onclick="setColor('#1d1d1f', this)"></div>
-                    <div class="color-circle" style="background: #0071e3;" onclick="setColor('#0071e3', this)"></div>
-                    <div class="color-circle" style="background: #34c759;" onclick="setColor('#34c759', this)"></div>
-                    <div class="color-circle" style="background: #af52de;" onclick="setColor('#af52de', this)"></div>
-                    <div class="color-circle" style="background: #e3a857;" onclick="setColor('#e3a857', this)"></div>
-                    <input type="color" id="customColorPicker" value="#1d1d1f" onchange="onCustomColorPicked(this.value)" title="Choose custom color">
+                <label class="section-label" style="margin-bottom:0;" id="lblColor">Custom Color</label>
+                <div class="color-picker-trigger">
+                    <div class="color-preview-circle" id="colorPreview"></div>
+                    <span class="color-hex-label" id="colorHexText">#1D1D1F</span>
+                    <input type="color" id="customColorPicker" value="#1d1d1f" oninput="onColorSelected(this.value)">
                 </div>
             </div>
         </div>
@@ -429,7 +441,7 @@
                 downloadBtn: "حفظ كصورة",
                 lblDots: "شكل النقاط والجسد",
                 lblCorners: "شكل زوايا QR",
-                lblColor: "ألوان مخصصة",
+                lblColor: "اختيار اللون",
                 btnStyleRounded: "مستدير",
                 btnStyleDots: "دوائر",
                 btnStyleClassy: "عصري",
@@ -453,7 +465,7 @@
                 downloadBtn: "Save Image",
                 lblDots: "Body Style",
                 lblCorners: "Corner Style",
-                lblColor: "Palette",
+                lblColor: "Custom Color",
                 btnStyleRounded: "Rounded",
                 btnStyleDots: "Dots",
                 btnStyleClassy: "Modern",
@@ -519,17 +531,14 @@
             }
         }
 
-        function setColor(hex, el) {
+        function onColorSelected(hex) {
             qrConfig.color = hex;
-            document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
-            if (el) el.classList.add('active');
+            document.getElementById('colorPreview').style.backgroundColor = hex;
+            document.getElementById('colorHexText').innerText = hex.toUpperCase();
+
             if (document.getElementById('qrResult').style.display === "flex") {
                 generateQR();
             }
-        }
-
-        function onCustomColorPicked(val) {
-            setColor(val, null);
         }
 
         function setActiveSegment(button, containerId) {
