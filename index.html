@@ -30,7 +30,7 @@
         }
 
         body {
-            font-family: BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-primary);
             min-height: 100vh;
@@ -100,7 +100,7 @@
         }
 
         p.subtitle {
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text-secondary);
             margin-bottom: 24px;
             text-align: center;
@@ -320,13 +320,6 @@
             color: rgba(0, 0, 0, 0.2);
             margin: 0 6px;
         }
-
-        .location {
-            font-size: 12px;
-            color: #999;
-            display: block;
-            margin-top: 4px;
-        }
     </style>
 </head>
 
@@ -339,6 +332,7 @@
         </div>
 
         <h1 id="title">QR Code Studio</h1>
+        <p class="subtitle" id="subtitle">100% Free tool to create bespoke, elegant QR designs</p>
 
         <div class="input-group">
             <input type="text" id="linkInput" placeholder="https://example.com" />
@@ -402,7 +396,7 @@
         let qrCode = new QRCodeStyling({
             width: 250,
             height: 250,
-            type: "svg",
+            type: "canvas",
             data: "",
             dotsOptions: {
                 color: "#1d1d1f",
@@ -426,9 +420,10 @@
                 langBtn: "English",
                 badgeFree: "مجاني 100%",
                 title: "استوديو الباركود",
+                subtitle: "أداة مجانية 100% لإنشاء تصاميم باركود أنيقة ومخصصة",
                 placeholder: "ضع الرابط هنا... https://example.com",
-                generateBtn: "إنشاء",
-                downloadBtn: "حفظ كصورة  ",
+                generateBtn: "إنشاء الباركود",
+                downloadBtn: "حفظ كصورة",
                 lblDots: "شكل النقاط والجسد",
                 lblCorners: "شكل زوايا QR",
                 lblColor: "ألوان مخصصة",
@@ -444,7 +439,7 @@
                 copyright: `جميع الحقوق محفوظة &copy; 2026<br>
                             تطوير: <a href="${myLinkedIn}" target="_blank" rel="noopener noreferrer">LinkedIn</a> 
                             <span class="separator">|</span> 
-                            <a href="${myEmail}">الإيميل</a>
+                            <a href="${myEmail}">الإيميل</a>`
             },
             en: {
                 langBtn: "عربي",
@@ -452,8 +447,8 @@
                 title: "QR Code Studio",
                 subtitle: "100% Free tool to create bespoke, elegant QR designs",
                 placeholder: "Paste your link here... https://example.com",
-                generateBtn: "Generate QR Code (Free)",
-                downloadBtn: "Download High-Res PNG",
+                generateBtn: "Generate QR Code",
+                downloadBtn: "Save Image",
                 lblDots: "Body Style",
                 lblCorners: "Corner Style",
                 lblColor: "Palette",
@@ -467,9 +462,9 @@
                 hintText: "Touch & hold or right-click to copy",
                 alertMsg: "Please paste a link first!",
                 copyright: `All Rights Reserved &copy; 2026<br>
-                            Developed by: <a href="${myLinkedIn}" target="_blank" rel="noopener noreferrer">LinkedIn </a> 
+                            Developed by: <a href="${myLinkedIn}" target="_blank" rel="noopener noreferrer">LinkedIn</a> 
                             <span class="separator">|</span> 
-                            <a href="${myEmail}">Email</a>
+                            <a href="${myEmail}">Email</a>`
             }
         };
 
